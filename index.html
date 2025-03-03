@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sibber Ahmad - Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js" defer></script>
+  <style>
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    .terminal-font {
+      font-family: monospace;
+    }
+
+    .type-cursor::after {
+      content: "|";
+      animation: blink 1s step-end infinite;
+      color: #00ff00;
+    }
+  </style>
+</head>
+<body class="bg-black text-green-500 terminal-font">
+<div class="min-h-screen flex flex-col items-center justify-center p-6" x-data="nameTyper">
+  <!-- Terminal Header -->
+  <div class="w-full max-w-4xl mb-8 border border-green-500 p-4 bg-gray-900">
+    <div class="flex space-x-2 mb-4">
+      <div class="h-3 w-3 bg-red-500 rounded-full"></div>
+      <div class="h-3 w-3 bg-yellow-500 rounded-full"></div>
+      <div class="h-3 w-3 bg-green-500 rounded-full"></div>
+    </div>
+
+    <div class="text-center space-y-4">
+      <h1 class="text-4xl font-bold" x-text="typedText"
+          :class="currentIndex < fullText.length ? 'type-cursor' : ''"></h1>
+      <div x-data="roleTyper">
+        <span class="text-lg text-green-400">$ </span>
+        <span class="text-lg text-green-400" x-text="currentSubText"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Projects Grid -->
+  <div class="w-full max-w-4xl grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8" x-data="projects">
+    <template x-for="project in projects" :key="index">
+      <div class="p-4 border border-green-500 hover:bg-gray-900 transition-colors">
+        <h3 class="text-xl text-green-400">$ <span x-text="project.title"></span></h3>
+        <p class="text-green-600 mt-2">// <span x-text="project.desc"></span></p>
+      </div>
+    </template>
+  </div>
+
+  <!-- About Section -->
+  <div class="w-full max-w-4xl mb-8 border border-green-500 p-4 bg-gray-900">
+    <h2 class="text-2xl text-green-400 mb-4">$ about_me</h2>
+    <p class="text-green-600">
+      // Passionate backend developer specializing in Laravel and Vue.js.<br>
+      // Focused on building efficient and scalable applications.
+    </p>
+  </div>
+
+  <!-- Skills Section -->
+  <div class="w-full max-w-4xl mb-8 border border-green-500 p-4 bg-gray-900">
+    <h2 class="text-2xl text-green-400 mb-4">$ skills</h2>
+    <div class="flex flex-wrap gap-2">
+      <template x-for="skill in ['PHP', 'Laravel','Javascript', 'Vue.js', 'Css', 'Tailwind', 'MySQL', 'API', 'Redis']" :key="skill">
+        <span class="px-2 py-1 border border-green-500 text-green-400"># <span x-text="skill"></span></span>
+      </template>
+    </div>
+  </div>
+
+  <!-- Contact -->
+  <div
+      class="w-full max-w-4xl text-center border border-green-500 p-4 bg-gray-900 hover:bg-green-900 transition-colors">
+    <a href="mailto:sibber11@gmail.com" class="text-green-400 text-xl">
+      $ contact_me --email sibber11@gmail.com
+    </a>
+  </div>
+
+  <!-- Terminal Footer -->
+  <div class="mt-8 text-green-600">
+    <p>sibber@portfolio:~$ <span class="type-cursor"></span></p>
+  </div>
+</div>
+</body>
+<script>
+  // Initialize Alpine.js data and functions
+  document.addEventListener('alpine:init', () => {
+    Alpine.data('nameTyper', () => ({
+      typedText: '',
+      fullText: 'Sibber Ahmad',
+      currentIndex: 0,
+      init() {
+        this.typeEffect();
+        setInterval(() => this.typeEffect(), 100);
+      },
+      typeEffect() {
+        if (this.currentIndex < this.fullText.length) {
+          this.typedText += this.fullText.charAt(this.currentIndex);
+          this.currentIndex++;
+        }
+      }
+    }));
+
+    Alpine.data('projects', ()=>({
+      projects: [
+        { title: 'POS System', desc: 'Customized POS with barcode integration' },
+        { title: 'Pharmacy Management', desc: 'Inventory, warehouse, and online sales' },
+        { title: 'CRM for Ticketing', desc: 'Manage customers and sales efficiently' },
+        { title: 'Project Management System', desc: 'Track tasks, deadlines, and teams' },
+        { title: 'Somity Management Software', desc: 'Loan, savings, and extensive reporting' },
+        { title: 'Farm Management System', desc: 'Monitor livestock and farm operations' }
+      ]
+    }))
+
+    Alpine.data('roleTyper', () => ({
+      typedText: '',
+      currentIndex: 0,
+      currentRoleIndex: 0,
+      currentRole: 'sometext',
+      isDeleting: false,
+      roles: [
+        'Backend Developer',
+        'Passionate Programmer',
+        'Tech Enthusiast',
+        'Database Designer',
+        'Software Engineer'
+      ],
+      currentSubText: '',
+      init() {
+        this.currentRole = this.roles[this.currentRoleIndex];
+        this.typeSubEffect();
+      },
+      typeSubEffect() {
+        if (!this.isDeleting) {
+          this.currentSubText = this.currentRole.substring(0, this.currentSubText.length + 1);
+          if (this.currentSubText !== this.currentRole) {
+            setTimeout(() => this.typeSubEffect(), 75);
+          }
+        } else {
+          this.currentSubText = this.currentRole.substring(0, this.currentSubText.length - 1);
+          if (this.currentSubText !== '') {
+            setTimeout(() => this.typeSubEffect(), 75);
+          } else {
+            setTimeout(() => {
+              this.typeSubEffect();
+              this.isDeleting = false;
+              this.currentRole = this.roles[this.currentRoleIndex];
+            }, 50);
+          }
+        }
+
+        if (this.currentSubText === this.currentRole) {
+          setTimeout(() => {
+            this.isDeleting = true;
+            this.currentRoleIndex = (this.currentRoleIndex + 1) % this.roles.length;
+            this.typeSubEffect();
+          }, 1000);
+        }
+      }
+    }));
+  });
+</script>
+</html>
