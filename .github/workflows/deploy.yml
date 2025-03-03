@@ -1,51 +1,29 @@
-name: Deploy to Staging Server
+name: Node CI
 
-on:
-  push:
-    branches:
-      - main
+on: [push]
 
 jobs:
-  deploy:
+  build:
+
     runs-on: ubuntu-latest
 
     steps:
-
-      - name: Setup SSH
-        uses: webfactory/ssh-agent@v0.5.3
+      - uses: actions/checkout@v3
+      - name: Install Node.js
+        uses: actions/setup-node@v3
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Add server to known_hosts
-        run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-
-      - name: Verify known_hosts
-        run: |
-          cat ~/.ssh/known_hosts
-
-      - name: Testing ssh
-        env:
-          SSH_USER: ${{ secrets.SSH_USER }}
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-        run: |
-          ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST '
-            cd /home/blinkerb/public_html &&
-            git stash &&
-            git pull origin main
-          '
-      
-      # - name: Deploy to Backend Server
-      #   env:
-      #     SSH_USER: ${{ secrets.SSH_USER }}
-      #     SSH_HOST: ${{ secrets.SSH_HOST }}
-      #   run: |
-      #     ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST '
-      #       cd /home/blinkerb/study.blinkerboy.me &&
-      #       sudo git stash &&
-      #       sudo git pull origin main &&
-      #       php artisan migrate &&
-      #       php artisan optimize:clear &&
-      #       npm run build
-      #     '
+          node-version: '16.x'
+      - name: Install npm dependencies
+        run: npm install
+      - name: Run build task
+        run: npm run build --if-present
+      - name: Deploy to Server
+        uses: easingthemes/ssh-deploy@main
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          ARGS: "-rlgoDzvc -i --delete"
+          SOURCE: "dist/"
+          REMOTE_HOST: ${{ secrets.SSH_HOST }}
+          REMOTE_USER: ${{ secrets.SSH_USER }}
+          TARGET: "/public_html/"
+          EXCLUDE: "/dist/, /node_modules/"
