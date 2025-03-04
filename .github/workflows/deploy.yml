@@ -29,5 +29,5 @@ jobs:
           EXCLUDE: "/dist/, /node_modules/"
           SCRIPT_BEFORE: |
             ls . &&
-            source ~/.profile &&
+            export PATH="$PATH:/usr/local/apps/nodejs22/bin:$HOME/bin" &&
             echo $PATH
