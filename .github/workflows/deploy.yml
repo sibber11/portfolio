@@ -27,5 +27,3 @@ jobs:
           REMOTE_USER: ${{ secrets.SSH_USER }}
           TARGET: "public_html/"
           EXCLUDE: "/dist/, /node_modules/"
-          SCRIPT_BEFORE: |
-            rsync --version
