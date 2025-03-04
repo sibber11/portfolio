@@ -25,8 +25,9 @@ jobs:
           SOURCE: "dist/"
           REMOTE_HOST: ${{ secrets.SSH_HOST }}
           REMOTE_USER: ${{ secrets.SSH_USER }}
-          TARGET: "/public_html/"
+          TARGET: "public_html/"
           EXCLUDE: "/dist/, /node_modules/"
           SCRIPT_BEFORE: |
             ls . &&
-            source ~/.profile
+            source ~/.profile &&
+            echo $PATH
