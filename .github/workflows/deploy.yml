@@ -20,4 +20,6 @@ jobs:
           script: |
             cd ~/public_html
             git pull --ff-only origin main
+            node -v && npm -v
+            npm ci
             npm run build
