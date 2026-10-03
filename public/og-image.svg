@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" font-family="Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0b1020"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.5"/>
+      <stop offset="55%" stop-color="#6366f1" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1080" cy="90" r="320" fill="url(#glow)"/>
+
+  <rect x="80" y="150" width="6" height="330" rx="3" fill="#4f46e5"/>
+
+  <text x="130" y="238" fill="#ffffff" font-size="82" font-weight="800" letter-spacing="-2">Sibber Ahmad</text>
+  <text x="130" y="308" fill="#818cf8" font-size="42" font-weight="600">Laravel &amp; Vue.js Backend Developer</text>
+  <text x="130" y="378" fill="#94a3b8" font-size="26">POS &#183; Pharmacy &#183; CRM &#183; ERP &#183; Realtime WebSockets</text>
+
+  <text x="130" y="480" fill="#64748b" font-size="24">sibber.com.bd</text>
+  <text x="130" y="518" fill="#64748b" font-size="24">sibber11@gmail.com</text>
+</svg>
