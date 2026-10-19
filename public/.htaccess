@@ -1,0 +1,12 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteCond %{HTTP_HOST} ^www\.sibber\.com\.bd$ [NC]
+    RewriteRule ^(.*)$ https://sibber.com.bd/$1 [R=301,L]
+
+    RewriteCond %{THE_REQUEST} \s/(dist/)?index\.html[\s?]
+    RewriteRule ^ https://sibber.com.bd/ [R=301,L]
+
+    RewriteCond %{THE_REQUEST} \s/dist/(\S*)\s
+    RewriteRule ^ https://sibber.com.bd/%1 [R=301,L]
+</IfModule>
