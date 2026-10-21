@@ -9,17 +9,21 @@
       <stop offset="55%" stop-color="#6366f1" stop-opacity="0.18"/>
       <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
     </radialGradient>
+    <clipPath id="photo"><circle cx="960" cy="315" r="170"/></clipPath>
   </defs>
 
   <rect width="1200" height="630" fill="url(#bg)"/>
-  <circle cx="1080" cy="90" r="320" fill="url(#glow)"/>
+  <circle cx="960" cy="315" r="360" fill="url(#glow)"/>
 
   <rect x="80" y="150" width="6" height="330" rx="3" fill="#4f46e5"/>
 
   <text x="130" y="238" fill="#ffffff" font-size="82" font-weight="800" letter-spacing="-2">Sibber Ahmad</text>
-  <text x="130" y="308" fill="#818cf8" font-size="42" font-weight="600">Laravel &amp; Vue.js Backend Developer</text>
-  <text x="130" y="378" fill="#94a3b8" font-size="26">POS &#183; Pharmacy &#183; CRM &#183; ERP &#183; Realtime WebSockets</text>
+  <text x="130" y="308" fill="#818cf8" font-size="34" font-weight="600">Laravel &amp; Vue.js Backend Developer</text>
+  <text x="130" y="378" fill="#94a3b8" font-size="22">POS &#183; Pharmacy &#183; CRM &#183; ERP &#183; Realtime WebSockets</text>
 
   <text x="130" y="480" fill="#64748b" font-size="24">sibber.com.bd</text>
   <text x="130" y="518" fill="#64748b" font-size="24">sibber11@gmail.com</text>
+
+  <image href="sibber-ahmad.webp" x="790" y="145" width="340" height="340" clip-path="url(#photo)" preserveAspectRatio="xMidYMid slice"/>
+  <circle cx="960" cy="315" r="172" fill="none" stroke="#6366f1" stroke-width="4"/>
 </svg>
